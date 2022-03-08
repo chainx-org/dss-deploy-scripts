@@ -267,7 +267,7 @@
         "ds-auth": "ds-auth_a51e7ca",
         "ds-pause": "ds-pause_5e798dd",
         "ds-test": "ds-test_0a5da56",
-        "dss": "dss_5721154",
+        "dss": "dss_ec7c852",
         "esm": "esm_8fabd86"
       },
       "name": "dss-deploy",
@@ -332,7 +332,7 @@
         "url": "https://github.com/makerdao/dss-vest"
       }
     },
-    "dss_5721154": {
+    "dss_ec7c852": {
       "deps": {
         "ds-test": "ds-test_0a5da56",
         "ds-token": "ds-token_a5e709b",
@@ -340,10 +340,10 @@
       },
       "name": "dss",
       "repo": {
-        "name": "dss-5721154",
+        "name": "dss-ec7c852",
         "ref": "v1.2",
-        "rev": "5721154b97470c9242385d22f2c2be0280f178ab",
-        "url": "https://github.com/makerdao/dss"
+        "rev": "ec7c85292cb16d03e2b206123ce5959af66c5462",
+        "url": "https://github.com/chainx-org/dss"
       }
     },
     "dss_204843a": {
