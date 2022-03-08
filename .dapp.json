@@ -251,7 +251,7 @@
         "ds-auth": "ds-auth_a51e7ca",
         "ds-pause": "ds-pause_5e798dd",
         "ds-test": "ds-test_0a5da56",
-        "dss": "dss_6c1c780",
+        "dss": "dss_204843a",
         "esm": "esm_cdf2412"
       },
       "name": "dss-deploy",
@@ -281,7 +281,7 @@
     "dss-flash_637008d": {
       "deps": {
         "ds-test": "ds-test_0a5da56",
-        "dss": "dss_6c1c780"
+        "dss": "dss_204843a"
       },
       "name": "dss-flash",
       "repo": {
@@ -346,7 +346,7 @@
         "url": "https://github.com/makerdao/dss"
       }
     },
-    "dss_6c1c780": {
+    "dss_204843a": {
       "deps": {
         "ds-test": "ds-test_0a5da56",
         "ds-token": "ds-token_a5e709b",
@@ -354,10 +354,10 @@
       },
       "name": "dss",
       "repo": {
-        "name": "dss-6c1c780",
+        "name": "dss-204843a",
         "ref": "HEAD",
-        "rev": "6c1c780d3c8ab6e27ea63d272e0d1176b05b9871",
-        "url": "https://github.com/makerdao/dss"
+        "rev": "204843af6dee3cfbb3cb5f546820e3f733a469e2",
+        "url": "https://github.com/chainx-org/dss"
       }
     },
     "erc20_f322aac": {
@@ -412,7 +412,7 @@
       "deps": {
         "ds-test": "ds-test_0a5da56",
         "ds-value": "ds-value_4049ecd",
-        "dss": "dss_6c1c780"
+        "dss": "dss_204843a"
       },
       "name": "ilk-registry",
       "repo": {
