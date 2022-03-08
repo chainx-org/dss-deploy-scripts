@@ -1,0 +1,120 @@
+{
+  "description": "Sherpax Deployment",
+  "pauseDelay": "0",
+  "vat_line": "778000000",
+  "vow_wait": "561600",
+  "vow_dump": "250",
+  "vow_sump": "50000",
+  "vow_bump": "30000",
+  "vow_hump": "500000",
+  "cat_box": "10000000",
+  "dog_hole": "100000000",
+  "jug_base": "0",
+  "pot_dsr": "0.01",
+  "end_wait": "262800",
+  "esm_min": "50000",
+  "flap_beg": "1.02",
+  "flap_ttl": "1800",
+  "flap_tau": "259200",
+  "flop_beg": "1.03",
+  "flop_pad": "1.2",
+  "flop_ttl": "600",
+  "flop_tau": "259200",
+  "flash_max": "500000000",
+  "flash_toll": "0",
+  "import": {
+    "faucet": "0x0000000000000000000000000000000000000000"
+  },
+  "tokens": {
+    "WBTC": {
+      "import": {
+        "gem": "0xa0fdf025240860cd22e7afcdae461bcaf5b177eb"
+      },
+      "joinDeploy": {
+        "src": "GemJoin5",
+        "extraParams": []
+      },
+      "pipDeploy": {
+        "osmDelay": "0",
+        "type": "median",
+        "signers": [
+          "0xb6b12ada59a8ac44ded72e03693dd14614224349"
+        ]
+      },
+      "ilks": {
+        "A": {
+          "mat": "145",
+          "line": "0",
+          "autoLine": "2000000000",
+          "autoLineGap": "80000000",
+          "autoLineTtl": "21600",
+          "dust": "15000",
+          "duty": "3.75",
+          "clipDeploy": {
+            "chop": "13",
+            "hole": "40000000",
+            "chip": "0.1",
+            "tip": "300",
+            "buf": "120",
+            "tail": "8400",
+            "cusp": "40",
+            "calc": {
+              "type": "StairstepExponentialDecrease",
+              "step": "90",
+              "cut":  "99"
+            },
+            "cm_tolerance": "50"
+          }
+        },
+        "B": {
+          "mat": "130",
+          "line": "0",
+          "autoLine": "500000000",
+          "autoLineGap": "30000000",
+          "autoLineTtl": "28800",
+          "dust": "30000",
+          "duty": "5",
+          "clipDeploy": {
+            "chop": "13",
+            "hole": "25000000",
+            "chip": "0.1",
+            "tip": "300",
+            "buf": "120",
+            "tail": "5400",
+            "cusp": "40",
+            "calc": {
+              "type": "StairstepExponentialDecrease",
+              "step": "60",
+              "cut":  "99"
+            },
+            "cm_tolerance": "50"
+          },
+          "C": {
+            "mat": "175",
+            "line": "0",
+            "autoLine": "1000000000",
+            "autoLineGap": "100000000",
+            "autoLineTtl": "28800",
+            "dust": "7500",
+            "duty": "0.75",
+            "clipDeploy": {
+              "chop": "13",
+              "hole": "25000000",
+              "chip": "0.1",
+              "tip": "300",
+              "buf": "120",
+              "tail": "5400",
+              "cusp": "40",
+              "calc": {
+                "type": "StairstepExponentialDecrease",
+                "step": "90",
+                "cut":  "99"
+              },
+              "cm_tolerance": "50"
+            }
+          }
+        }
+      }
+    }
+  }
+}
