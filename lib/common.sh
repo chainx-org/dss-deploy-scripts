@@ -134,7 +134,7 @@ log() {
 }
 
 logAddr() {
-    sethSend "$CHANGELOG" 'setAddress(bytes32,address)' "$(seth --to-bytes32 "$(seth --from-ascii "$1")")" "$2"
+#    sethSend "$CHANGELOG" 'setAddress(bytes32,address)' "$(seth --to-bytes32 "$(seth --from-ascii "$1")")" "$2"
     printf '%b\n' "${GREEN}${1}=${2}${NC}"
     echo ""
 }

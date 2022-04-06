@@ -32,9 +32,9 @@ for token in $tokens; do
     # if PIP is an OSM
     if [[ ${#src} == 42 && "${src:0:2}" == "0x" ]]; then
         ilks=$(jq -r ".tokens.${token}.ilks | keys_unsorted[]" "$CONFIG_FILE")
-        for ilk in $ilks; do
-            sethSend "$OSM_MOM" 'setOsm(bytes32,address)' "$(seth --to-bytes32 "$(seth --from-ascii "${token}-${ilk}")")" "$(eval echo "\$PIP_${token}")"
-        done
+#        for ilk in $ilks; do
+#            sethSend "$OSM_MOM" 'setOsm(bytes32,address)' "$(seth --to-bytes32 "$(seth --from-ascii "${token}-${ilk}")")" "$(eval echo "\$PIP_${token}")"
+#        done
         # Rely OsmMom in OSM only if DEPLOYER has permission to do it
         if [[ "$(seth call "$(eval echo "\$PIP_${token}")" 'wards(address)(uint256)' "$ETH_FROM")" == 1 ]]; then
             sethSend "$(eval echo "\$PIP_${token}")" 'rely(address)' "$OSM_MOM"
@@ -42,5 +42,5 @@ for token in $tokens; do
     fi
 done
 
-sethSend "$OSM_MOM" 'setAuthority(address)' "$MCD_ADM"
-sethSend "$OSM_MOM" 'setOwner(address)' "$MCD_PAUSE_PROXY"
+#sethSend "$OSM_MOM" 'setAuthority(address)' "$MCD_ADM"
+#sethSend "$OSM_MOM" 'setOwner(address)' "$MCD_PAUSE_PROXY"

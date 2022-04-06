@@ -245,6 +245,14 @@ dapp2nix clone-recursive contracts
 - `dss-deploy` [source code](https://github.com/makerdao/dss-deploy)
 - `dss` is documented in the [wiki](https://github.com/makerdao/dss/wiki) and in [DEVELOPING.md](https://github.com/makerdao/dss/blob/master/DEVELOPING.md)
 
+## Add Gem
+
+~~~
+./add_gem.sh
+~~~
+
+
+
 ## TODO
 
 - More cases to test scenarios for testchain script

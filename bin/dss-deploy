@@ -67,7 +67,6 @@ writeConfigFor "$1"
 #if [[ "$RPC_CHAIN" == "testchain" && -n "$OMNIA_ADDR" && -n "$OMNIA_AMT" ]]; then
 #    sethSend "$OMNIA_ADDR" --value "$(seth --to-wei "$OMNIA_AMT" eth)"
 #fi
-
 "$LIBEXEC_DIR"/base-deploy |& tee "$OUT_DIR/dss-$1.log"
 
 NETWORK=$(toUpper "$1")

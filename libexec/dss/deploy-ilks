@@ -20,7 +20,6 @@
 
 
 tokens=$(jq -r ".tokens | keys_unsorted[]" "$CONFIG_FILE")
-
 for token in $tokens; do
     gemAddr=$(jq -r ".tokens.${token} | .import.gem | values" "$CONFIG_FILE")
     
@@ -44,39 +43,104 @@ for token in $tokens; do
         flipDeploy="$(jq ".tokens.${token}.ilks.${ilk} | .flipDeploy!=null" "$CONFIG_FILE")"
 
         if [[ "$flipDeploy" == true ]]; then
-            sethSend "$MCD_DEPLOY" "deployCollateralFlip(bytes32,address,address)" \
-                "$ilkName"                                                         \
-                "$joinAddr"                                                        \
-                "$(eval echo "\$PIP_${token}")"
+              pass
+#            sethSend "$MCD_DEPLOY" "deployCollateralFlip(bytes32,address,address)" \
+#                "$ilkName"                                                         \
+#                "$joinAddr"                                                        \
+#                "$(eval echo "\$PIP_${token}")"
         else
             calcType=$(jq -r ".tokens.${token}.ilks.${ilk}.clipDeploy.calc.type | values" "$CONFIG_FILE")
             calc=$(dappCreate dss-deploy "$calcType")
             logAddr "MCD_CLIP_CALC_${ilkEnvVar}" "${calc}"
             sethSend "$calc" 'rely(address)' "$MCD_PAUSE_PROXY"
-            sethSend "$calc" 'deny(address)' "$ETH_FROM"
 
-            sethSend "$MCD_DEPLOY" "deployCollateralClip(bytes32,address,address,address)" \
-                "$ilkName"                                                                 \
-                "$joinAddr"                                   \
-                "$(eval echo "\$PIP_${token}")"                                            \
-                "$calc"
+#            sethSend "$MCD_DEPLOY" "deployCollateralClip(bytes32,address,address,address)" \
+#                "$ilkName"                                                                 \
+#                "$joinAddr"                                   \
+#                "$(eval echo "\$PIP_${token}")"                                            \
+#                "$calc"
+             clip=$(dappCreate dss-deploy Clipper "$MCD_DEPLOY" "$MCD_VAT" "$MCD_SPOT" "$ilkName")
+
+             sethSend "$clip" 'rely(address)' "$MCD_DOG"
+             sethSend "$clip" 'rely(address)' "$MCD_END"
+             sethSend "$clip" 'rely(address)' "$MCD_ESM"
+             sethSend "$clip" 'rely(address)' "$MCD_PAUSE_PROXY"
+             sethSend "$clip" 'rely(address)' "$CLIPPER_MOM"
+             sethSend "$clip" 'file(bytes32,address)' "$(seth --to-bytes32 "$(seth --from-ascii "vow")")" "$MCD_VOW"
+             sethSend "$clip" 'file(bytes32,address)' "$(seth --to-bytes32 "$(seth --from-ascii "calc")")" "$calc"
+
+             # buf
+             buf=$(jq -r ".tokens.${token}.ilks.${ilk} | .clipDeploy.buf" "$CONFIG_FILE")
+             buf=$(echo "$buf*10^25" | bc -l)
+             buf=${buf%.*}
+             sethSend "$clip" 'file(bytes32,uint256)' "$(seth --to-bytes32 "$(seth --from-ascii "buf")")" "$buf"
+
+            # cusp
+            cusp=$(jq -r ".tokens.${token}.ilks.${ilk} | .clipDeploy.cusp" "$CONFIG_FILE")
+            cusp=$(echo "${cusp}*10^25" | bc -l)
+            cusp=${cusp%.*}
+            sethSend "$clip" 'file(bytes32,uint256)' "$(seth --to-bytes32 "$(seth --from-ascii "cusp")")" "$cusp"
+
+            # chip
+            chip="$(jq -r ".tokens.${token}.ilks.${ilk} | .clipDeploy.chip" "$CONFIG_FILE")"
+            chip=$(echo "${chip}*10^16" | bc -l)
+            chip=${chip%.*}
+            sethSend "$clip" 'file(bytes32,uint256)' "$(seth --to-bytes32 "$(seth --from-ascii "chip")")" "$chip"
+
+            # tail
+            tail=$(jq -r ".tokens.${token}.ilks.${ilk} | .clipDeploy.tail" "$CONFIG_FILE")
+            sethSend "$clip" 'file(bytes32,uint256)' "$(seth --to-bytes32 "$(seth --from-ascii "tail")")" "$tail"
+
+            # tip
+            tip="$(jq -r ".tokens.${token}.ilks.${ilk} | .clipDeploy.tip" "$CONFIG_FILE")"
+            tip=$(echo "$tip"*10^45 | bc)
+            tip=${tip%.*}
+            sethSend "$clip" 'file(bytes32,uint256)' "$(seth --to-bytes32 "$(seth --from-ascii "tip")")" "$tip"
+
+            # calc params
+             setUint256Param() {
+              set -e
+              local  name;  name=$1
+              local value; value=$2
+              sethSend "$calc" 'file(bytes32,uint256)' "$(seth --to-bytes32 "$(seth --from-ascii "${name}")")" "$value"
+            }
+
+             type=$(jq -r ".tokens.${token}.ilks.${ilk} | .clipDeploy.calc.type" "$CONFIG_FILE")
+            if [[ "$type" == "LinearDecrease" ]]; then
+                tau=$(jq -r ".tokens.${token}.ilks.${ilk} | .clipDeploy.calc.tau" "$CONFIG_FILE")
+                setUint256Param "tau" "${tau}"
+            fi
+            if [[ "$type" == "StairstepExponentialDecrease" || "$type" == "ExponentialDecrease" ]]; then
+                cut=$(jq -r ".tokens.${token}.ilks.${ilk} | .clipDeploy.calc.cut" "$CONFIG_FILE")
+                cut=$(echo "($cut/100) * 10^27" | bc -l)
+                cut=${cut%.*}
+                setUint256Param "cut" "${cut}"
+            fi
+            if [[ "$type" == "StairstepExponentialDecrease" ]]; then
+                step=$(jq -r ".tokens.${token}.ilks.${ilk} | .clipDeploy.calc.step" "$CONFIG_FILE")
+                setUint256Param "step" "${step}"
+            fi
+
+            sethSend "$calc" 'deny(address)' "$ETH_FROM"
+             sethSend "$clip" 'deny(address)' "$ETH_FROM"
         fi
 
         # Just in case there is a reorg or the node is not up to date we keep checking until getting a result
-        keepChecking=true
-        export keepChecking
-        while [[ "$keepChecking" == true ]]
-        do
-            data=()
-            while IFS=$'\n' read -r line; do data+=("$line"); done < <(seth call "$MCD_DEPLOY" "ilks(bytes32)(address,address,address)" "$ilkName")
-
-            if [[ ${data[0]} != "0x0000000000000000000000000000000000000000" || ${data[1]} != "0x0000000000000000000000000000000000000000" ]]; then
-                keepChecking=false
-            else
-                echo "F/Clipper not found, checking again in five seconds..."
-                sleep 5
-            fi
-        done
+#        keepChecking=true
+#        export keepChecking
+#        while [[ "$keepChecking" == true ]]
+#        do
+#            data=()
+#            while IFS=$'\n' read -r line; do data+=("$line"); done < <(seth call "$MCD_DEPLOY" "ilks(bytes32)(address,address,address)" "$ilkName")
+#            echo "data"
+#            echo $data
+#            if [[ ${data[0]} != "0x0000000000000000000000000000000000000000" || ${data[1]} != "0x0000000000000000000000000000000000000000" ]]; then
+#                keepChecking=false
+#            else
+#                echo "F/Clipper not found, checking again in five seconds..."
+#                sleep 5
+#            fi
+#        done
 
         exports+="
         export ${token}=\"${gemAddr}\"
@@ -84,14 +148,15 @@ for token in $tokens; do
         "
 
         if [[ "$flipDeploy" == true ]]; then
-            logAddr "MCD_FLIP_${ilkEnvVar}" "${data[0]}"
-            exports+="
-            export MCD_FLIP_${ilkEnvVar}=\"${data[0]}\"
-            "
+             pass
+#            logAddr "MCD_FLIP_${ilkEnvVar}" "${data[0]}"
+#            exports+="
+#            export MCD_FLIP_${ilkEnvVar}=\"${data[0]}\"
+#            "
         else
-            logAddr "MCD_CLIP_${ilkEnvVar}" "${data[1]}"
+            logAddr "MCD_CLIP_${ilkEnvVar}" "${clip}"
             exports+="
-            export MCD_CLIP_${ilkEnvVar}=\"${data[1]}\"
+            export MCD_CLIP_${ilkEnvVar}=\"${clip}\"
             export MCD_CLIP_CALC_${ilkEnvVar}=\"${calc}\"
             "
         fi

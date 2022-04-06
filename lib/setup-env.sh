@@ -39,12 +39,12 @@ else
 fi
 
 # Set dapptools environment variables
-export ETH_PASSWORD="${ETH_PASSWORD:-/dev/null}"
-export ETH_KEYSTORE="${ETH_KEYSTORE:-$KEYSTORE_PATH}"
-export ETH_RPC_URL="${ETH_RPC_URL:-$TESTNET_URL}"
+export ETH_PASSWORD="/home/daiwei/chainx/dai/password/2"
+export ETH_KEYSTORE="/home/daiwei/chainx/dai/keystore"
+export ETH_RPC_URL="https://sherpax-testnet.chainx.org/rpc"
 export ETH_GAS=7000000
 
-export ETH_FROM="${ETH_FROM:-$(seth ls | head -n1 | awk '{print $1}')}"
+export ETH_FROM="0x6725b0e53ed3b3b9e8540f819e688b7303db44cc"
 
 # For dai.js tests
 if command -v sethret > /dev/null 2>&1; then

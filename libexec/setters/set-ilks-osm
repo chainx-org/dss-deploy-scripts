@@ -53,8 +53,8 @@ for token in $tokens; do
                     sethSend "$osm" 'kiss(address)' "$CLIPPER_MOM"
                 fi
 
-                calldata="$(seth calldata 'file(address,address,address,bytes32,bytes32,address)' "$MCD_PAUSE" "$MCD_GOV_ACTIONS" "$MCD_SPOT" "$(seth --to-bytes32 "$(seth --from-ascii "${token}-${ilk}")")" "$(seth --to-bytes32 "$(seth --from-ascii "pip")")" "$osm")"
-                sethSend "$PROXY_DEPLOYER" 'execute(address,bytes memory)' "$PROXY_PAUSE_ACTIONS" "$calldata"
+#                calldata="$(seth calldata 'file(address,address,address,bytes32,bytes32,address)' "$MCD_PAUSE" "$MCD_GOV_ACTIONS" "$MCD_SPOT" "$(seth --to-bytes32 "$(seth --from-ascii "${token}-${ilk}")")" "$(seth --to-bytes32 "$(seth --from-ascii "pip")")" "$osm")"
+#                sethSend "$PROXY_DEPLOYER" 'execute(address,bytes memory)' "$PROXY_PAUSE_ACTIONS" "$calldata"
             done
         else
             logAddr "PIP_${token}" "$(eval echo "\$VAL_${token}")"
