@@ -24,7 +24,7 @@
         "url": "https://github.com/dapphub/ds-auth"
       }
     },
-    "ds-chief_224b476": {
+    "ds-chief_fc84c82": {
       "deps": {
         "ds-roles": "ds-roles_53d5694",
         "ds-test": "ds-test_0a5da56",
@@ -33,10 +33,10 @@
       },
       "name": "ds-chief",
       "repo": {
-        "name": "ds-chief-224b476",
+        "name": "ds-chief-fc84c82",
         "ref": "HEAD",
-        "rev": "224b476de95e7fabedb173ddb59fe271a366ff62",
-        "url": "https://github.com/makerdao/ds-chief"
+        "rev": "fc84c82ac434e20f124ca2ac0e88340946f37421",
+        "url": "https://github.com/chainx-org/ds-chief"
       }
     },
     "ds-math_e70a364": {
@@ -195,16 +195,16 @@
         "url": "https://github.com/makerdao/dsr-manager"
       }
     },
-    "dss-auto-line_bff7e6c": {
+    "dss-auto-line_3ad841c": {
       "deps": {
         "ds-test": "ds-test_0a5da56"
       },
       "name": "dss-auto-line",
       "repo": {
-        "name": "dss-auto-line-bff7e6c",
+        "name": "dss-auto-line-3ad841c",
         "ref": "HEAD",
-        "rev": "bff7e6cc43dbd7d9a054dd359ef18a1b4d06b6f5",
-        "url": "https://github.com/makerdao/dss-auto-line"
+        "rev": "3ad841cb759de84c60f8cd19f508b3b4196f73fa",
+        "url": "https://github.com/chainx-org/dss-auto-line"
       }
     },
     "dss-cdp-manager_d88d488": {
@@ -550,7 +550,7 @@
     },
     "vote-proxy_67067a1": {
       "deps": {
-        "ds-chief": "ds-chief_224b476",
+        "ds-chief": "ds-chief_fc84c82",
         "ds-test": "ds-test_0a5da56"
       },
       "name": "vote-proxy",
@@ -565,14 +565,14 @@
   "this": {
     "deps": {
       "clipper-mom": "clipper-mom_1473b44",
-      "ds-chief": "ds-chief_224b476",
+      "ds-chief": "ds-chief_fc84c82",
       "ds-proxy": "ds-proxy_e17a252",
       "ds-roles": "ds-roles_53d5694",
       "ds-token": "ds-token_a5e709b",
       "ds-value": "ds-value_4049ecd",
       "ds-weth": "ds-weth_b23b478",
       "dsr-manager": "dsr-manager_e5d2a43",
-      "dss-auto-line": "dss-auto-line_bff7e6c",
+      "dss-auto-line": "dss-auto-line_3ad841c",
       "dss-cdp-manager": "dss-cdp-manager_d88d488",
       "dss-chain-log": "dss-chain-log_83e7a01",
       "dss-deploy": "dss-deploy_177a449",
