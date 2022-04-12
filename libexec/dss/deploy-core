@@ -21,7 +21,7 @@
 # If no Governance token is defined, create one
 if [ -z "$MCD_GOV" ]
 then
-    MCD_GOV=$(dappCreate ds-token DSToken '"MKR"')
+    MCD_GOV=$(dappCreate ds-token DSToken '"BDA"')
     logAddr "MCD_GOV" "$MCD_GOV"
 fi
 
