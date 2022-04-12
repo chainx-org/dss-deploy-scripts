@@ -24,7 +24,7 @@
         "url": "https://github.com/dapphub/ds-auth"
       }
     },
-    "ds-chief_fc84c82": {
+    "ds-chief_3c7b3e4": {
       "deps": {
         "ds-roles": "ds-roles_53d5694",
         "ds-test": "ds-test_0a5da56",
@@ -33,9 +33,9 @@
       },
       "name": "ds-chief",
       "repo": {
-        "name": "ds-chief-fc84c82",
+        "name": "ds-chief-3c7b3e4",
         "ref": "HEAD",
-        "rev": "fc84c82ac434e20f124ca2ac0e88340946f37421",
+        "rev": "3c7b3e41252c0deddb2d76933e4e05d9c6094c34",
         "url": "https://github.com/chainx-org/ds-chief"
       }
     },
@@ -550,7 +550,7 @@
     },
     "vote-proxy_67067a1": {
       "deps": {
-        "ds-chief": "ds-chief_fc84c82",
+        "ds-chief": "ds-chief_3c7b3e4",
         "ds-test": "ds-test_0a5da56"
       },
       "name": "vote-proxy",
@@ -565,7 +565,7 @@
   "this": {
     "deps": {
       "clipper-mom": "clipper-mom_1473b44",
-      "ds-chief": "ds-chief_fc84c82",
+      "ds-chief": "ds-chief_3c7b3e4",
       "ds-proxy": "ds-proxy_e17a252",
       "ds-roles": "ds-roles_53d5694",
       "ds-token": "ds-token_a5e709b",
