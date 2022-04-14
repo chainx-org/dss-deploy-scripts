@@ -167,6 +167,17 @@ logAddr "CDP_MANAGER" "$CDP_MANAGER"
 GET_CDPS=$(dappCreate dss-cdp-manager GetCdps)
 logAddr "GET_CDPS" "$GET_CDPS"
 
+# Deploy BdaIssue
+# gov token address, cdp manager address, proxy registry address, reward delay
+bda_delay=$(jq -r ".bda_delay | values" "$CONFIG_FILE")
+BDA_ISSUE=$(dappCreate dss-bda-issue BdaIssue "$MCD_GOV" "$CDP_MANAGER" "$PROXY_REGISTRY" "$bda_delay")
+logAddr "BDA_ISSUE" "$BDA_ISSUE"
+# Allow BdaIssue to mint Gov token
+sethSend "$GOV_GUARD" 'rely(address)' "$BDA_ISSUE"
+
+sethSend "$BDA_ISSUE" 'rely(address)' "$MCD_PAUSE_PROXY"
+sethSend "$BDA_ISSUE" 'deny(address)' "$ETH_FROM"
+
 # Deploy DsrManager
 DSR_MANAGER=$(dappCreate dsr-manager DsrManager "$MCD_POT" "$MCD_JOIN_DAI")
 logAddr "DSR_MANAGER" "$DSR_MANAGER"
@@ -385,7 +396,8 @@ cat > "$OUT_DIR"/addresses.json <<EOF
     "PROXY_FACTORY": "$(seth --to-checksum-address "$PROXY_FACTORY")",
     "PROXY_REGISTRY": "$(seth --to-checksum-address "$PROXY_REGISTRY")"$ILKS_VARS,
     "PROXY_PAUSE_ACTIONS": "$PROXY_PAUSE_ACTIONS",
-    "PROXY_DEPLOYER": "$(seth --to-checksum-address "$PROXY_DEPLOYER")"
+    "PROXY_DEPLOYER": "$(seth --to-checksum-address "$PROXY_DEPLOYER")",
+    "BDA_ISSUE": "$BDA_ISSUE"
 }
 EOF
 

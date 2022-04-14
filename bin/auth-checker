@@ -241,6 +241,7 @@ checkOwner "MCD_GOV" "MCD_PAUSE_PROXY"
 canCall "MCD_FLOP" "MCD_GOV" "mint(address,uint256)"
 canCall "MCD_FLAP" "MCD_GOV" "burn(address,uint256)"
 canCall "MCD_VEST_MKR" "MCD_GOV" "mint(address,uint256)"
+canCall "BDA_ISSUE" "MCD_GOV" "mint(address,uint256)"
 
 # gov guard
 if [[ -n "$GOV_GUARD" ]]; then
