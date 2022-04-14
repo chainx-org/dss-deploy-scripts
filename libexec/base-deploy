@@ -125,9 +125,24 @@ export MCD_ESM_MIN
 . "$OUT_DIR/load-core-addr-temp"
 rm "$OUT_DIR/load-core-addr-temp"
 
+# Deploy CdpManager
+CDP_MANAGER=$(dappCreate dss-cdp-manager DssCdpManager "$MCD_VAT")
+logAddr "CDP_MANAGER" "$CDP_MANAGER"
+GET_CDPS=$(dappCreate dss-cdp-manager GetCdps)
+logAddr "GET_CDPS" "$GET_CDPS"
+
+# Deploy BdaIssue
+# gov token address, cdp manager address, proxy registry address, reward delay
+bda_delay=$(jq -r ".bda_delay | values" "$CONFIG_FILE")
+BDA_ISSUE=$(dappCreate bda-issue BdaIssue "$MCD_GOV" "$CDP_MANAGER" "$PROXY_REGISTRY" "$bda_delay")
+logAddr "BDA_ISSUE" "$BDA_ISSUE"
+
+sethSend "$BDA_ISSUE" 'rely(address)' "$MCD_PAUSE_PROXY"
+sethSend "$BDA_ISSUE" 'deny(address)' "$ETH_FROM"
+
 # Mint Gov Token, send to the Faucet and set permissions if a new token
 if [[ "$newGovToken" == true ]]; then
-    sethSend "$MCD_GOV" 'mint(address,uint256)' "$ETH_FROM" "$(seth --to-uint256 "$(seth --to-wei 1000000 ETH)")"
+    # sethSend "$MCD_GOV" 'mint(address,uint256)' "$ETH_FROM" "$(seth --to-uint256 "$(seth --to-wei 1000000 ETH)")"
     # sethSend "$FAUCET" 'gulp(address)' "$MCD_GOV"
 
     # Use custom authority for the new GOV token
@@ -142,6 +157,9 @@ if [[ "$newGovToken" == true ]]; then
 
     # Allow Flop to mint Gov token
     sethSend "$GOV_GUARD" 'rely(address)' "$MCD_FLOP"
+
+    # Allow BdaIssue to mint Gov token
+    sethSend "$GOV_GUARD" 'rely(address)' "$BDA_ISSUE"
 
     # Set root to MCD_PAUSE_PROXY
     sethSend "$GOV_GUARD" 'setRoot(address)' "$MCD_PAUSE_PROXY"
@@ -160,23 +178,6 @@ PROXY_ACTIONS_END=$(dappCreate dss-proxy-actions-optimized DssProxyActionsEnd)
 logAddr "PROXY_ACTIONS_END" "$PROXY_ACTIONS_END"
 PROXY_ACTIONS_DSR=$(dappCreate dss-proxy-actions-optimized DssProxyActionsDsr)
 logAddr "PROXY_ACTIONS_DSR" "$PROXY_ACTIONS_DSR"
-
-# Deploy CdpManager
-CDP_MANAGER=$(dappCreate dss-cdp-manager DssCdpManager "$MCD_VAT")
-logAddr "CDP_MANAGER" "$CDP_MANAGER"
-GET_CDPS=$(dappCreate dss-cdp-manager GetCdps)
-logAddr "GET_CDPS" "$GET_CDPS"
-
-# Deploy BdaIssue
-# gov token address, cdp manager address, proxy registry address, reward delay
-bda_delay=$(jq -r ".bda_delay | values" "$CONFIG_FILE")
-BDA_ISSUE=$(dappCreate dss-bda-issue BdaIssue "$MCD_GOV" "$CDP_MANAGER" "$PROXY_REGISTRY" "$bda_delay")
-logAddr "BDA_ISSUE" "$BDA_ISSUE"
-# Allow BdaIssue to mint Gov token
-sethSend "$GOV_GUARD" 'rely(address)' "$BDA_ISSUE"
-
-sethSend "$BDA_ISSUE" 'rely(address)' "$MCD_PAUSE_PROXY"
-sethSend "$BDA_ISSUE" 'deny(address)' "$ETH_FROM"
 
 # Deploy DsrManager
 DSR_MANAGER=$(dappCreate dsr-manager DsrManager "$MCD_POT" "$MCD_JOIN_DAI")
