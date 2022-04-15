@@ -114,7 +114,7 @@
         }
       }
     },
-    "WBTC": {
+    "SBTC": {
       "import": {
         "gem": "0xa0fdf025240860cd22e7afcdae461bcaf5b177eb"
       },
