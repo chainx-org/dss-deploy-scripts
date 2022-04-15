@@ -1,6 +1,6 @@
 {
   "description": "Sherpax Deployment",
-  "pauseDelay": "0",
+  "pauseDelay": "60",
   "vat_line": "778000000",
   "vow_wait": "561600",
   "vow_dump": "250",
@@ -22,20 +22,18 @@
   "flop_tau": "259200",
   "flash_max": "500000000",
   "flash_toll": "0",
-  "import": {
-    "faucet": "0x0000000000000000000000000000000000000000"
-  },
+  "bda_delay": "0",
   "tokens": {
-    "WBTC": {
+    "KSX": {
       "import": {
-        "gem": "0xa0fdf025240860cd22e7afcdae461bcaf5b177eb"
+        "gem": "0xDf62d18AFA1A804601b72d49aDC6Ed4fb336a672"
       },
       "joinDeploy": {
-        "src": "GemJoin5",
+        "src": "GemJoin",
         "extraParams": []
       },
       "pipDeploy": {
-        "osmDelay": "0",
+        "osmDelay": "60",
         "type": "median",
         "signers": [
           "0xb6b12ada59a8ac44ded72e03693dd14614224349"
@@ -61,7 +59,7 @@
             "calc": {
               "type": "StairstepExponentialDecrease",
               "step": "90",
-              "cut": "99"
+              "cut":  "99"
             },
             "cm_tolerance": "50"
           }
@@ -85,19 +83,85 @@
             "calc": {
               "type": "StairstepExponentialDecrease",
               "step": "60",
-              "cut": "99"
+              "cut":  "99"
+            },
+            "cm_tolerance": "50"
+          },
+          "C": {
+            "mat": "175",
+            "line": "0",
+            "autoLine": "1000000000",
+            "autoLineGap": "100000000",
+            "autoLineTtl": "28800",
+            "dust": "7500",
+            "duty": "0.75",
+            "clipDeploy": {
+              "chop": "13",
+              "hole": "25000000",
+              "chip": "0.1",
+              "tip": "300",
+              "buf": "120",
+              "tail": "5400",
+              "cusp": "40",
+              "calc": {
+                "type": "StairstepExponentialDecrease",
+                "step": "90",
+                "cut":  "99"
+              },
+              "cm_tolerance": "50"
+            }
+          }
+        }
+      }
+    },
+    "WBTC": {
+      "import": {
+        "gem": "0xa0fdf025240860cd22e7afcdae461bcaf5b177eb"
+      },
+      "joinDeploy": {
+        "src": "GemJoin5",
+        "extraParams": []
+      },
+      "pipDeploy": {
+        "osmDelay": "60",
+        "type": "median",
+        "signers": [
+          "0xb6b12ada59a8ac44ded72e03693dd14614224349"
+        ]
+      },
+      "ilks": {
+        "A": {
+          "mat": "145",
+          "line": "0",
+          "autoLine": "2000000000",
+          "autoLineGap": "80000000",
+          "autoLineTtl": "21600",
+          "dust": "15000",
+          "duty": "3.75",
+          "clipDeploy": {
+            "chop": "13",
+            "hole": "40000000",
+            "chip": "0.1",
+            "tip": "300",
+            "buf": "120",
+            "tail": "8400",
+            "cusp": "40",
+            "calc": {
+              "type": "StairstepExponentialDecrease",
+              "step": "90",
+              "cut":  "99"
             },
             "cm_tolerance": "50"
           }
         },
-        "C": {
-          "mat": "175",
+        "B": {
+          "mat": "130",
           "line": "0",
-          "autoLine": "1000000000",
-          "autoLineGap": "100000000",
+          "autoLine": "500000000",
+          "autoLineGap": "30000000",
           "autoLineTtl": "28800",
-          "dust": "7500",
-          "duty": "0.75",
+          "dust": "30000",
+          "duty": "5",
           "clipDeploy": {
             "chop": "13",
             "hole": "25000000",
@@ -108,10 +172,34 @@
             "cusp": "40",
             "calc": {
               "type": "StairstepExponentialDecrease",
-              "step": "90",
-              "cut": "99"
+              "step": "60",
+              "cut":  "99"
             },
             "cm_tolerance": "50"
+          },
+          "C": {
+            "mat": "175",
+            "line": "0",
+            "autoLine": "1000000000",
+            "autoLineGap": "100000000",
+            "autoLineTtl": "28800",
+            "dust": "7500",
+            "duty": "0.75",
+            "clipDeploy": {
+              "chop": "13",
+              "hole": "25000000",
+              "chip": "0.1",
+              "tip": "300",
+              "buf": "120",
+              "tail": "5400",
+              "cusp": "40",
+              "calc": {
+                "type": "StairstepExponentialDecrease",
+                "step": "90",
+                "cut":  "99"
+              },
+              "cm_tolerance": "50"
+            }
           }
         }
       }
