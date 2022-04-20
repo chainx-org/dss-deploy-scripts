@@ -561,7 +561,7 @@
         "url": "https://github.com/makerdao/vote-proxy"
       }
     },
-    "bda-issue_34df8e5": {
+    "bda-issue_935681b": {
       "deps": {
         "ds-test": "ds-test_0a5da56",
         "ds-token": "ds-token_a5e709b",
@@ -572,9 +572,9 @@
       },
       "name": "bda-issue",
       "repo": {
-        "name": "bda-issue-34df8e5",
+        "name": "bda-issue-935681b",
         "ref": "HEAD",
-        "rev": "34df8e52192c9365524af8ce606ffdd9efc9ac08",
+        "rev": "935681b0fb9a8b749d10f31c69772175dc2b4c17",
         "url": "https://github.com/chainx-org/bda-issue"
       }
     }
@@ -611,7 +611,7 @@
       "token-faucet": "token-faucet_2d9189c",
       "vote-delegate": "vote-delegate_c2345b7",
       "vote-proxy": "vote-proxy_67067a1",
-      "bda-issue": "bda-issue_34df8e5"
+      "bda-issue": "bda-issue_935681b"
     },
     "name": "dss-deploy-scripts"
   },
