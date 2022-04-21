@@ -561,6 +561,16 @@
         "url": "https://github.com/makerdao/vote-proxy"
       }
     },
+    "dss-interfaces_4470bc4": {
+      "deps": {},
+      "name": "dss-interfaces",
+      "repo": {
+        "name": "dss-interfaces-4470bc4",
+        "ref": "HEAD",
+        "rev": "4470bc451403b597d924c895e7dc99d6aa6a7d7f",
+        "url": "https://github.com/makerdao/dss-interfaces"
+      }
+    },
     "bda-issue_935681b": {
       "deps": {
         "ds-test": "ds-test_0a5da56",
@@ -576,6 +586,20 @@
         "ref": "HEAD",
         "rev": "935681b0fb9a8b749d10f31c69772175dc2b4c17",
         "url": "https://github.com/chainx-org/bda-issue"
+      }
+    },
+    "dss-psm_7d717d8": {
+      "deps": {
+        "ds-test": "ds-test_0a5da56",
+        "dss": "dss_204843a",
+        "dss-interfaces": "dss-interfaces_4470bc4"
+      },
+      "name": "dss-psm",
+      "repo": {
+        "name": "dss-psm-7d717d8",
+        "ref": "HEAD",
+        "rev": "7d717d88d6b6dfcb346119369647969df6cadad3",
+        "url": "https://github.com/makerdao/dss-psm"
       }
     }
   },
@@ -599,6 +623,7 @@
       "dss-gem-joins": "dss-gem-joins_404bfc8",
       "dss-proxy-actions": "dss-proxy-actions_0656578",
       "dss-vest": "dss-vest_68dab07",
+      "dss-psm": "dss-psm_7d717d8",
       "flipper-mom": "flipper-mom_3a57ea1",
       "ilk-registry": "ilk-registry_fc08245",
       "mkr-authority": "mkr-authority_fc19f8a",

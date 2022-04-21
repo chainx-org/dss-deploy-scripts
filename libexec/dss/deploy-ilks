@@ -38,7 +38,19 @@ for token in $tokens; do
         ilkName=$(seth --to-bytes32 "$(seth --from-ascii "${token}-${ilk}")")
         ilkEnvVar="${token}_${ilk}"
 
-        joinAddr=$(dappCreate dss-gem-joins "$joinSrc" "$MCD_VAT" "$ilkName" "$gemAddr" "${joinExtraParams[@]}")
+        if [[ "$joinSrc" == *"Auth"* ]];
+        then
+            joinAddr=$(dappCreate dss-psm "$joinSrc" "$MCD_VAT" "$ilkName" "$gemAddr" "${joinExtraParams[@]}")
+            psmAddr=$(dappCreate dss-psm DssPsm "$joinAddr" "$MCD_JOIN_DAI" "$MCD_VOW")
+            sethSend "$joinAddr" 'rely(address)' "$psmAddr"
+            sethSend "$psmAddr" 'rely(address)' "$MCD_PAUSE_PROXY"
+            sethSend "$psmAddr" 'deny(address)' "$ETH_FROM"
+            exports+="
+            export MCD_PSM_${ilkEnvVar}=\"${joinAddr}\"
+            "
+        else
+            joinAddr=$(dappCreate dss-gem-joins "$joinSrc" "$MCD_VAT" "$ilkName" "$gemAddr" "${joinExtraParams[@]}")
+        fi
         logAddr "MCD_JOIN_${ilkEnvVar}" "$(eval "echo ${joinAddr}")"
 
         flipDeploy="$(jq ".tokens.${token}.ilks.${ilk} | .flipDeploy!=null" "$CONFIG_FILE")"
