@@ -22,6 +22,8 @@
   "flop_tau": "259200",
   "flash_max": "10000",
   "flash_toll": "0",
+  "psm_tin": "0",
+  "psm_tout": "0",
   "bda_delay": "0",
   "tokens": {
     "KSX": {

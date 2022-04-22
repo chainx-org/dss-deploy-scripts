@@ -42,6 +42,26 @@ for token in $tokens; do
         then
             joinAddr=$(dappCreate dss-psm "$joinSrc" "$MCD_VAT" "$ilkName" "$gemAddr" "${joinExtraParams[@]}")
             psmAddr=$(dappCreate dss-psm DssPsm "$joinAddr" "$MCD_JOIN_DAI" "$MCD_VOW")
+
+            log "SET PSM TIN:"
+
+            # Set tin
+            tin=$(jq -r ".psm_tin | values" "$CONFIG_FILE")
+            if [[ "$tin" != "" ]]; then
+                tin=$(echo "$tin*10^18" | bc -l)
+                tin=$(seth --to-uint256 "${tin%.*}")
+                sethSend "$psmAddr" 'file(bytes32,uint256)' "$(seth --to-bytes32 "$(seth --from-ascii "tin")")" "$tin"
+            fi
+
+            log "SET PSM TOUT:"
+            # Set tout
+            tout=$(jq -r ".psm_tout | values" "$CONFIG_FILE")
+            if [[ "$tout" != "" ]]; then
+                tout=$(echo "$tout*10^18" | bc -l)
+                tout=$(seth --to-uint256 "${tout%.*}")
+                sethSend "$psmAddr" 'file(bytes32,uint256)' "$(seth --to-bytes32 "$(seth --from-ascii "tout")")" "$tout"
+            fi
+
             sethSend "$joinAddr" 'rely(address)' "$psmAddr"
             sethSend "$psmAddr" 'rely(address)' "$MCD_PAUSE_PROXY"
             sethSend "$psmAddr" 'deny(address)' "$ETH_FROM"
