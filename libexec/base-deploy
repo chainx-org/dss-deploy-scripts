@@ -281,6 +281,9 @@ for token in $tokens; do
     ILKS_VARS+=",
     \"MCD_JOIN_${token}_${ilk}\": \"$(eval echo "\$MCD_JOIN_${token}_${ilk}")\""
 
+    ILKS_VARS+=",
+    \"MCD_PSM_${token}_${ilk}\": \"$(eval echo "\$MCD_PSM_${token}_${ilk}")\""
+
     flipDeploy="$(jq ".tokens.${token}.ilks.${ilk} | .flipDeploy!=null" "$CONFIG_FILE")"
     if [[ "$flipDeploy" == true ]]; then
     ILKS_VARS+=",

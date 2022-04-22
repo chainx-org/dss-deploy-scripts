@@ -45,8 +45,10 @@ for token in $tokens; do
             sethSend "$joinAddr" 'rely(address)' "$psmAddr"
             sethSend "$psmAddr" 'rely(address)' "$MCD_PAUSE_PROXY"
             sethSend "$psmAddr" 'deny(address)' "$ETH_FROM"
+
+            logAddr "MCD_PSM_${ilkEnvVar}" "$(eval "echo ${psmAddr}")"
             exports+="
-            export MCD_PSM_${ilkEnvVar}=\"${joinAddr}\"
+            export MCD_PSM_${ilkEnvVar}=\"${psmAddr}\"
             "
         else
             joinAddr=$(dappCreate dss-gem-joins "$joinSrc" "$MCD_VAT" "$ilkName" "$gemAddr" "${joinExtraParams[@]}")
