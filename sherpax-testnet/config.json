@@ -22,6 +22,8 @@
   "flop_tau": "259200",
   "flash_max": "10000",
   "flash_toll": "0",
+  "psm_tin": "0.001",
+  "psm_tout": "0.001",
   "bda_delay": "0",
   "tokens": {
     "KSX": {
@@ -219,7 +221,7 @@
       },
       "ilks": {
         "A": {
-          "mat": "100",
+          "mat": "130",
           "line": "100000000",
           "autoLine": "0",
           "autoLineGap": "0",
@@ -299,7 +301,7 @@
       },
       "ilks": {
         "A": {
-          "mat": "100",
+          "mat": "130",
           "line": "100000000",
           "autoLine": "0",
           "autoLineGap": "0",
@@ -379,7 +381,7 @@
       },
       "ilks": {
         "A": {
-          "mat": "100",
+          "mat": "130",
           "line": "100000000",
           "autoLine": "0",
           "autoLineGap": "0",
