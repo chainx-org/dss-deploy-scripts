@@ -461,7 +461,7 @@
     "osm-mom_820324a": {
       "deps": {
         "ds-test": "ds-test_0a5da56",
-        "osm": "osm_e36c874"
+        "osm": "osm_1cdf8d0"
       },
       "name": "osm-mom",
       "repo": {
