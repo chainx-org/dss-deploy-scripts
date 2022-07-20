@@ -471,7 +471,7 @@
         "url": "https://github.com/makerdao/osm-mom"
       }
     },
-    "osm_e36c874": {
+    "osm_1cdf8d0": {
       "deps": {
         "ds-stop": "ds-stop_27cad71",
         "ds-test": "ds-test_0a5da56",
@@ -479,10 +479,10 @@
       },
       "name": "osm",
       "repo": {
-        "name": "osm-e36c874",
+        "name": "osm-1cdf8d0",
         "ref": "HEAD",
-        "rev": "e36c874b4e14fba860e48c0cf99cd600c0c59efa",
-        "url": "https://github.com/makerdao/osm"
+        "rev": "1cdf8d0c0987ccc9470fefe11a89332ec387e8a0",
+        "url": "https://github.com/chainx-org/osm"
       }
     },
     "proxy-registry_981715a": {
@@ -628,7 +628,7 @@
       "ilk-registry": "ilk-registry_fc08245",
       "mkr-authority": "mkr-authority_fc19f8a",
       "multicall": "multicall_1e1b443",
-      "osm": "osm_e36c874",
+      "osm": "osm_1cdf8d0",
       "osm-mom": "osm-mom_820324a",
       "proxy-registry": "proxy-registry_981715a",
       "symbolic-voting": "symbolic-voting_5f9c56f",
