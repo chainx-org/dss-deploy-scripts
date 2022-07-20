@@ -27,12 +27,7 @@ help() {
 
 test -z "$1" && echo "Missing network" && help
 
-RPC_CHAIN="$(seth chain)"
-if [[ "$RPC_CHAIN" == "unknown" ]]; then
-    RPC_CHAIN="testchain"
-elif [[ "$RPC_CHAIN" == "ethlive" ]]; then
-    RPC_CHAIN="main"
-fi
+RPC_CHAIN="testchain"
 
 test -z "$RPC_CHAIN" && echo "There is not node running configured" && exit 1
 
